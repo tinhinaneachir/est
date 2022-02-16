@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+
+	<servlet>
+		<servlet-name>Test</servlet-name>
+		<servlet-class>com.sdzee.servlets.Test</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Test</servlet-name>
+		<url-pattern>/toto</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>FilmControleur</servlet-name>
+		<servlet-class>com.sdzee.servlets.FilmControleur</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FilmControleur</servlet-name>
+		<url-pattern>/listFilms</url-pattern>
+	</servlet-mapping>
+
+
+
+	<servlet>
+		<servlet-name>AfficheFilmControleur</servlet-name>
+		<servlet-class>com.sdzee.servlets.AfficheFilmControleur
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AfficheFilmControleur</servlet-name>
+		<url-pattern>/afficheFilm</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>AfficheFilmControleur</servlet-name>
+		<servlet-class>com.sdzee.servlets.AfficheFilmControleur
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AfficheFilmControleur</servlet-name>
+		<url-pattern>/rechercheFilmByLibelle</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>NotationControleur</servlet-name>
+		<servlet-class>com.sdzee.servlets.NotationControleur
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NotationControleur</servlet-name>
+		<url-pattern>/notation</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<servlet-name>UserControleur</servlet-name>
+		<servlet-class>com.sdzee.servlets.UserControleur</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UserControleur</servlet-name>
+		<url-pattern>/SignIn</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<servlet-name>UserConnexionControleur</servlet-name>
+		<servlet-class>com.sdzee.servlets.UserConnexionControleur
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UserConnexionControleur</servlet-name>
+		<url-pattern>/SignUp</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>UserDeconnexionControleur</servlet-name>
+		<servlet-class>com.sdzee.servlets.UserDeconnexionControleur
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UserDeconnexionControleur</servlet-name>
+		<url-pattern>/deconnexion</url-pattern>
+	</servlet-mapping>
+
+
+	<jsp-config>
+		<taglib>
+			<taglib-uri>http://java.sun.com/jstl/core</taglib-uri>
+			<taglib-location>/WEB-INF/tld/c.tld</taglib-location>
+		</taglib>
+	</jsp-config>
+
+	<welcome-file-list>
+		<welcome-file>SignUp</welcome-file>
+	</welcome-file-list>
+
+</web-app>
