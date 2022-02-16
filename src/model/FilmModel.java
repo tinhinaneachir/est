@@ -2,7 +2,6 @@ package model;
 
 import java.sql.Array;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -11,7 +10,6 @@ import java.util.List;
 
 import bean.Acteur;
 import bean.Film;
-import bean.Notation;
 import bean.Realisateur;
 
 public class FilmModel implements FilmDao {
@@ -29,36 +27,21 @@ public class FilmModel implements FilmDao {
 	
 	@Override
 	public Film getFilmByID(int idFilm) {
-		
-		Film film = null;
-		try {
-			Connection connexion = dataBaseConnect.getConnection();
-			Statement statement = connexion.createStatement();
-			ResultSet resultat = statement.executeQuery("SELECT * FROM film where IdFilm="+idFilm);
-			
-			while (resultat.next()) {
 
-				int IdFilm = resultat.getInt("IdFilm");
-				String Titre = resultat.getString("Titre");
-				String Image = resultat.getString("Image");
-				long NoteFinal = resultat.getLong("NoteFinal");
-				String anneecreation = resultat.getString("anneecreation");
-				String duree = resultat.getString("duree");
-				String Description = resultat.getString("Description");
-				String categorie = resultat.getString("categorie");
-				String Qualite = resultat.getString("Qualite");
-				String codeIso = resultat.getString("codeIso");
-				int Realisateur = resultat.getInt("Realisateur");
-                String LienFilm=resultat.getString("LienFilm");
-				
-				film = new Film(IdFilm, Titre, Image, NoteFinal, anneecreation, duree, Description, categorie,
-						Qualite, codeIso, Realisateur,LienFilm);
-			}
-    
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		String test  = "test" + idFilm;
+		String Titre = test;
+		String Image = test;
+		long NoteFinal = idFilm;
+		String anneecreation = "2012";
+		String duree = ""+idFilm;
+		String Description = test;
+		String categorie = test;
+		String Qualite = test;
+		String codeIso = test;
+		int Realisateur = idFilm;
+		 String LienFilm= "test";
+		Film film = new Film(idFilm, Titre, Image, NoteFinal, anneecreation, duree, Description, categorie,
+				Qualite, codeIso, Realisateur,LienFilm);
 		
 		return film;
 	}
@@ -68,33 +51,24 @@ public class FilmModel implements FilmDao {
 	public List<Film> lister() {
 
 		List<Film> films = new ArrayList();
-		try {
-			Connection connexion = dataBaseConnect.getConnection();
-			Statement statement = connexion.createStatement();
-			ResultSet resultat = statement.executeQuery("SELECT * FROM film;");
+		for(int i =1; i<5; i++) {
+			int IdFilm = i;
+			String test  = "test" + i;
+			String Titre = test;
+			String Image = test;
+			long NoteFinal = i;
+			String anneecreation = "2012";
+			String duree = ""+i;
+			String Description = test;
+			String categorie = test;
+			String Qualite = test;
+			String codeIso = test;
+			int Realisateur = i;
+			 String LienFilm= "test";
+			Film film = new Film(IdFilm, Titre, Image, NoteFinal, anneecreation, duree, Description, categorie,
+					Qualite, codeIso, Realisateur,LienFilm);
 
-			while (resultat.next()) {
-
-				int IdFilm = resultat.getInt("IdFilm");
-				String Titre = resultat.getString("Titre");
-				String Image = resultat.getString("Image");
-				long NoteFinal = resultat.getLong("NoteFinal");
-				String anneecreation = resultat.getString("anneecreation");
-				String duree = resultat.getString("duree");
-				String Description = resultat.getString("Description");
-				String categorie = resultat.getString("categorie");
-				String Qualite = resultat.getString("Qualite");
-				String codeIso = resultat.getString("codeIso");
-				int Realisateur = resultat.getInt("Realisateur");
-				 String LienFilm=resultat.getString("LienFilm");
-				Film film = new Film(IdFilm, Titre, Image, NoteFinal, anneecreation, duree, Description, categorie,
-						Qualite, codeIso, Realisateur,LienFilm);
-
-				films.add(film);
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
+			films.add(film);
 		}
 		return films;
 	}
@@ -104,121 +78,19 @@ public class FilmModel implements FilmDao {
 	@Override
 	public Realisateur getRealisateurByIdFilm(int idFilm) {
 		
-		Realisateur realisateur = null;
-		try {
-			Film film=getFilmByID(idFilm);
-			Connection connexion = dataBaseConnect.getConnection();
-			Statement statement = connexion.createStatement();
-			ResultSet resultat = statement.executeQuery("SELECT * FROM Realisateur where IdRealisateur="+film.getRealisateur()+";");
-			while (resultat.next()) {				
-				realisateur=new Realisateur(resultat.getInt("IdRealisateur"), resultat.getString("Nom_prenom"), resultat.getString("Nationalite"), resultat.getString("Photo"));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return realisateur;		
+		return new Realisateur(1, "Nom_Prenom_"+idFilm+"_1", "Nationalite"+idFilm+"_1", "PhotosActeur/AbrilVictoria.jpg");
+		
 	}
 
 	@Override
 	public List<Acteur> getListActeurByIdFilm(int idFilm) {
 		List<Acteur> listActeurs= new ArrayList();
-		try {
-			Connection connexion = dataBaseConnect.getConnection();
-			Statement statement = connexion.createStatement();
-			Statement statement2 = connexion.createStatement();
-			ResultSet resultat = statement.executeQuery("SELECT * FROM Acteurfilm where Film="+idFilm+";");
-
-			while (resultat.next()) {
-				int idActeur = resultat.getInt("Acteur");				
-				ResultSet resultatActeur = statement2.executeQuery("SELECT * FROM Acteur where IdActeur="+idActeur+";");
-				while (resultatActeur.next()) {
-					Acteur acteur=new Acteur(idActeur,resultatActeur.getString("Nom_Prenom"),resultatActeur.getString("Nationalite"), resultatActeur.getString("Photo"));
-					listActeurs.add(acteur);
-				}
-			}
-			
-			statement.close();
-			statement2.close();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
+		for(int i =1; i<2; i++) {
+			Acteur acteur=new Acteur(i,"Nom_Prenom_"+idFilm+"_"+i,"Nationalite_"+idFilm+"_"+i, "PhotosRealisateur/BenhZeitlin.jpg");
+			listActeurs.add(acteur);
 		}
 		
 		return listActeurs;
-	}
-
-	@Override
-	public void noterFilm(Notation notation) {
-		Connection connexion;
-		PreparedStatement  prepareStatement ;
-		try {
-			    connexion = dataBaseConnect.getConnection();
-			    prepareStatement = connexion.prepareStatement("INSERT INTO Notation(Film,User,Note) VALUES(?,?,?);");
-			    prepareStatement.setInt(1, notation.getFilm());
-			    prepareStatement.setInt(2, notation.getUser());
-			    prepareStatement.setInt(3, notation.getNote());
-    		    prepareStatement.executeUpdate();
-	
-		} catch (SQLException e) {
-			System.out.println("======================"+e.getMessage());
-			e.printStackTrace();
-		}
-		
-	}
-
-	@Override
-	public float getNoteFinalByIdFilm(int idFilm) {
-		float noteFinal=0;
-		try {
-			Connection connexion = dataBaseConnect.getConnection();
-			Statement statement = connexion.createStatement();
-			ResultSet resultat = statement.executeQuery("SELECT avg(Note) as noteFinal FROM notation where Film="+idFilm);
-			while (resultat.next()) {
-				
-				noteFinal = resultat.getFloat("noteFinal");
-			}    
-			System.out.println("Note final du film :"+noteFinal);
-			return noteFinal;
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return noteFinal;
-	}
-
-	@Override
-	public List<Film> rechercheFilmByLibelle(String libelle) {
-		List<Film> films = new ArrayList();
-		try {
-			Connection connexion = dataBaseConnect.getConnection();
-			Statement statement = connexion.createStatement();
-			ResultSet resultat = statement.executeQuery("SELECT * FROM film where Titre like '%"+libelle+"%'"+" or Description like '%"+libelle+"%';");
-
-			while (resultat.next()) {
-
-				int IdFilm = resultat.getInt("IdFilm");
-				String Titre = resultat.getString("Titre");
-				String Image = resultat.getString("Image");
-				float NoteFinal = resultat.getFloat("NoteFinal");
-				String anneecreation = resultat.getString("anneecreation");
-				String duree = resultat.getString("duree");
-				String Description = resultat.getString("Description");
-				String categorie = resultat.getString("categorie");
-				String Qualite = resultat.getString("Qualite");
-				String codeIso = resultat.getString("codeIso");
-				int Realisateur = resultat.getInt("Realisateur");
-				 String LienFilm=resultat.getString("LienFilm");
-				Film film = new Film(IdFilm, Titre, Image, NoteFinal, anneecreation, duree, Description, categorie,
-						Qualite, codeIso, Realisateur,LienFilm);
-
-				films.add(film);
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return films;
 	}
 
 	
